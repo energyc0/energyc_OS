@@ -26,6 +26,9 @@ clean:
 	make clean -C $(BOOTLOADER_DIR)
 
 qemu:
+	qemu-system-i386 -fda $(DISK)
+
+debug:
 	qemu-system-i386 -S -gdb tcp::1234 -no-reboot -d int,cpu_reset -fda $(DISK)
 
 kerndump:
@@ -34,4 +37,4 @@ kerndump:
 kernsections:
 	readelf -l $(BUILD_DIR)/$(KERNEL_DIR)/kernel.out
 
-.PHONY: $(BOOTLOADER) $(KERNEL) $(DISK) qemu kerndump
+.PHONY: $(BOOTLOADER) $(KERNEL) $(DISK) qemu kerndump debug
